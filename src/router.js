@@ -10,8 +10,10 @@ const router = () => {
   </Router>
 }
 
+
+import Amap from './components/shared/amap'
 const Index = () => {
-  return <div>首页</div>
+  return <Amap />
 }
 
 const NoRouter = () => {
