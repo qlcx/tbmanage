@@ -31,7 +31,6 @@ export default class Amap extends PureComponent {
 
   render() {
     return <div className={styles.container}>
-      <p> 123123 </p>
       <div id='gmap'></div>
     </div>
   }

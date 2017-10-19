@@ -30,10 +30,19 @@ const plugins = [
   }),
   new ExtractTextPlugin({
     filename: '[name].[contenthash].css'
-  })
+  }),
+  new webpack.optimize.CommonsChunkPlugin({name: 'vendor'}),
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'manifest',
+    chunks: ['vendor']
+  }),
 ]
 
 module.exports = merge(baseWebpackConfig, {
+  entry: {
+    ...baseWebpackConfig.entry,
+    vendor: ['react', 'react-dom', 'react-router', 'react-router-dom']
+  },
   module: {
     rules: [...baseWebpackConfig.module.rules, {
       test: /\.css$/,
