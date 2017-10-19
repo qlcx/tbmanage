@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import styles from './amap.scss'
 
 export default class Amap extends PureComponent {
   componentDidMount() {
@@ -29,6 +30,9 @@ export default class Amap extends PureComponent {
   }
 
   render() {
-    return <div id='gmap'></div>
+    return <div className={styles.container}>
+      <p> 123123 </p>
+      <div id='gmap'></div>
+    </div>
   }
 }
