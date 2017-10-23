@@ -1789,6 +1789,14 @@ esrecurse@^4.1.0:
     estraverse "^4.1.0"
     object-assign "^4.0.1"
 
+esri-loader-react@^1.0.2:
+  version "1.0.2"
+  resolved "http://registry.npm.taobao.org/esri-loader-react/download/esri-loader-react-1.0.2.tgz#5117556285b579f4b5125aa883ab4932fedd5fd0"
+
+esri-loader@^1.1.0:
+  version "1.1.0"
+  resolved "http://registry.npm.taobao.org/esri-loader/download/esri-loader-1.1.0.tgz#5957f39a3708108a8b42b5c42928c127e39abed8"
+
 estraverse@^4.1.0, estraverse@^4.1.1:
   version "4.2.0"
   resolved "http://registry.npm.taobao.org/estraverse/download/estraverse-4.2.0.tgz#0dee3fed31fcd469618ce7342099fc1afa0bdb13"

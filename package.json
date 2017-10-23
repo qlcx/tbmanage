@@ -11,6 +11,8 @@
     "start": "yarn run clean && yarn run webpack-dev"
   },
   "dependencies": {
+    "esri-loader": "^1.1.0",
+    "esri-loader-react": "^1.0.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router": "^4.2.0",
