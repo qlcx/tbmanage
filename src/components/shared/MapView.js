@@ -95,6 +95,11 @@ export default class MapView extends PureComponent {
         }
       })
       mapView.graphics.add(polylineGraphic)
+
+      mapView.on('pointer-move', (e) => {
+        let currentLngLat = mapView.toMap({x: e.x, y: e.y })
+        // polylineGraphic()
+      })
     })
   }
 
