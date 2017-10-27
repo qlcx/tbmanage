@@ -11,9 +11,11 @@ const router = () => {
 }
 
 
-import Amap from './components/shared/amap'
-const Index = () => {
-  return <Amap />
+import MapView from './components/shared/MapView'
+class Index extends Component {
+  render() {
+    return <MapView ref={ref => this.mapView = ref} />
+  }
 }
 
 const NoRouter = () => {
