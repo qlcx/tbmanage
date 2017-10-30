@@ -90,12 +90,6 @@ export default class MapView extends PureComponent {
         geometry: polyline,
         symbol: polylineSymbol,
         attributes: polylineAtt,
-        // popupTemplate: {
-        //   title: 'marriage in nanning',
-        //   layerOptions: {
-        //     showNoDataRecords: false
-        //   }
-        // }
       })
       polylineArr.push(polylineGraphic)
 
@@ -138,11 +132,15 @@ export default class MapView extends PureComponent {
           } else if (needResetPolyline){
             mapView.graphics.removeAll()
             mapView.graphics.addMany(polylineArr)
-            mapView.popup.close()
 
             needResetPolyline = false
           }
         })
+      })
+
+      // 关闭弹窗
+      mapView.on('click', e => {
+        mapView.popup.close()        
       })
     })
   }
