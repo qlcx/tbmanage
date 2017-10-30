@@ -34,13 +34,13 @@ export default class MapView extends PureComponent {
       let mapView = new EsriMapView({
         container: 'viewDiv',
         map: map,
-        zoom: 12,
+        zoom: 14,
         constraints: {
           minZoom: 2,
           maxZoom: 15,
           rotationEnabled: false, // 禁止旋转
         },
-        center: [118.8, 31.97]
+        center: [118.778836727142, 32.0819564125855]
       })
       // 添加定位按钮
       let locateWidget = new Locate({ view: mapView })
@@ -61,7 +61,10 @@ export default class MapView extends PureComponent {
       })
       map.add(tileLayer)
 
-      // mark 
+      // mark
+      let polylineArr = []
+      // 需要重置标志
+      let needResetPolyline = false      
       let polyline = {
         type: 'polyline',
         paths: [
@@ -77,7 +80,7 @@ export default class MapView extends PureComponent {
       let polylineSymbol = {
         type: 'simple-line',
         color: [51, 204, 51, 0.9],
-        width: 4
+        width: 4,
       }
       let polylineAtt = {
         Name: 'lj',
@@ -87,18 +90,59 @@ export default class MapView extends PureComponent {
         geometry: polyline,
         symbol: polylineSymbol,
         attributes: polylineAtt,
-        popupTemplate: {
-          title: 'marriage in nanning',
-          layerOptions: {
-            showNoDataRecords: false
-          }
-        }
+        // popupTemplate: {
+        //   title: 'marriage in nanning',
+        //   layerOptions: {
+        //     showNoDataRecords: false
+        //   }
+        // }
       })
-      mapView.graphics.add(polylineGraphic)
+      polylineArr.push(polylineGraphic)
 
-      mapView.on('pointer-move', (e) => {
-        let currentLngLat = mapView.toMap({x: e.x, y: e.y })
-        // polylineGraphic()
+      let polylineCopy = {
+        type: 'polyline',
+        paths: [
+          [118.773899244308,32.0867105823674],
+          [118.766015043259,32.0865287516976]        
+        ]
+      }
+      let polylineGraphicCopy = polylineGraphic.clone()
+      polylineGraphicCopy.geometry = polylineCopy
+      polylineArr.push(polylineGraphicCopy)
+  
+      mapView.graphics.addMany(polylineArr)
+
+      mapView.on('pointer-move', e => {
+        // hitTest用来测试在地图上是否有graphics
+        mapView.hitTest(e).then(res => {
+          let screenPoint = res.screenPoint
+
+          if (res.results.length) {
+            let graphic = res.results[0].graphic
+            
+            let highlightGraphic = graphic.clone()
+            highlightGraphic.symbol = {
+              type: "simple-line",
+              color: "orange",
+              width: 5,
+              cap: "round"
+            }
+            mapView.graphics.remove(graphic)
+            mapView.graphics.add(highlightGraphic)
+            mapView.popup.open({
+              title: 'marriage in nanning',
+              location: mapView.toMap({x: screenPoint.x, y: screenPoint.y })
+            })
+
+            needResetPolyline = true
+          } else if (needResetPolyline){
+            mapView.graphics.removeAll()
+            mapView.graphics.addMany(polylineArr)
+            mapView.popup.close()
+
+            needResetPolyline = false
+          }
+        })
       })
     })
   }
