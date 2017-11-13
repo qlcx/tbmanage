@@ -10,7 +10,6 @@ const router = () => {
   </Router>
 }
 
-
 import MapView from './components/shared/MapView'
 class Index extends Component {
   render() {
